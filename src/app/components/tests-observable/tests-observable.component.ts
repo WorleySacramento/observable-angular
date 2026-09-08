@@ -16,7 +16,8 @@ export class TestsObservableComponent {
     console.log('testObservable called');
 
     const obs: Observable<number> = new Observable<number>((subscriber) => {
-      subscriber.next(1);
+     setTimeout(() => {
+       subscriber.next(1);
       subscriber.next(3);
       subscriber.next(5);
       const numeroAleatorio = Math.floor(Math.random() * 100);
@@ -25,7 +26,8 @@ export class TestsObservableComponent {
       }
       subscriber.next(numeroAleatorio);
       subscriber.complete();
-    })
+    }, 2000);
+      });
 
     obs.subscribe({
       next: (numero) =>{
@@ -37,7 +39,9 @@ export class TestsObservableComponent {
       error: (erro) => {
         console.error('Erro no Observable: ', erro.message);
       }
-    })
+    });
+
+    console.log('OLÁ');
   }
 
 }
