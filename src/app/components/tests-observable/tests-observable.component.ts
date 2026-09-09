@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { filter, first, from, last, Observable, of } from 'rxjs';
+import { filter, first, from, last, map, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-tests-observable',
@@ -11,7 +11,24 @@ export class TestsObservableComponent {
   constructor() {
     // this.testObservable();
     // this.testeOperadoresCreate();
-    this.testoperadoresFilter();
+    // this.testoperadoresFilter();
+    this.testeOperadoresTransform();
+
+  }
+
+  testeOperadoresTransform() {
+    const obs = from([1, 2, 3, 4, 5]);
+    obs.pipe(map(numero => numero * 2)).subscribe({
+      next: (numero) => {
+        console.warn('Map Emitiu: ', numero);
+      }
+    });
+
+    obs.pipe(map(numero => `Número: ${numero}`)).subscribe({
+      next: (texto) => {
+        console.warn('Map Emitiu: ', texto);
+      }
+    });
   }
 
   testoperadoresFilter() {
@@ -28,7 +45,7 @@ export class TestsObservableComponent {
       }
     });
 
-    obs.pipe(filter((numero)=> numero < 8)).subscribe({
+    obs.pipe(filter((numero) => numero < 8)).subscribe({
       next: (numero) => {
         console.warn('Filter Emitiu: ', numero);
       }
