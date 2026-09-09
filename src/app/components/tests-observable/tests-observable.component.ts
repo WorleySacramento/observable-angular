@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-tests-observable',
@@ -9,7 +9,25 @@ import { Observable } from 'rxjs';
 export class TestsObservableComponent {
 
   constructor() { 
-    this.testObservable();
+    // this.testObservable();
+    this.testeOperadoresCreate();
+  }
+
+  testeOperadoresCreate(){
+    const obs = from([1, 2, 3, 4, 5]);
+    obs.subscribe({
+      next: (numero) => {
+        console.warn('From Emitiu: ', numero);
+      }
+    });
+
+    const obs2 = of(10, 20, 30, 40, 50);
+
+    obs2.subscribe({
+      next: (numero) => {
+        console.warn('Of Emitiu: ', numero);
+      }
+    });
   }
 
   testObservable() {
