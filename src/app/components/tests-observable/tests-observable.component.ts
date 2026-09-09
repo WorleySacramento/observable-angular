@@ -12,7 +12,29 @@ export class TestsObservableComponent {
     // this.testObservable();
     // this.testeOperadoresCreate();
     // this.testoperadoresFilter();
-    this.testeOperadoresTransform();
+    // this.testeOperadoresTransform();
+    this.testeComposicao();
+
+  }
+
+  testeComposicao(){
+    const obs = this.randomNumbers(5);
+    obs.pipe(map(numero => numero / 2), filter((numero) => numero % 1 == 0))
+    .subscribe({
+      next: (numero) => {
+        console.warn('Random Emitiu: ', numero);
+      }
+    });
+  }
+
+  randomNumbers(total: number): Observable<number> {
+    return new Observable<number>((subscriber) => {
+      for (let i = 0; i < total; i++) {
+        const numeroAleatorio = Math.floor(Math.random() * 100);
+        subscriber.next(numeroAleatorio);
+      }
+      subscriber.complete();
+    });
 
   }
 
